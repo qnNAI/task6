@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Application.Common.Mappings;
 using Application.Common.Contracts.Services;
 using Application.Services;
+using FluentValidation;
 
 namespace Application {
 
@@ -23,6 +24,8 @@ namespace Application {
             services.AddScoped<IMapper, Mapper>();
 
             services.AddScoped<IUserService, UserService>();
+
+            services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
             return services;
         }

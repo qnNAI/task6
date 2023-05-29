@@ -20,3 +20,12 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.container {
+    max-width: 600px;
+}
+
+form > * {
+    margin-bottom: 1rem;
+}
+

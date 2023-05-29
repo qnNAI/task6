@@ -1,5 +1,5 @@
 ﻿$(document).ready(function () {
-    $('#productName').autocomplete({
+    $('#f-recipient').autocomplete({
         source: '/user/SearchAutocomplete',
         delay: 500
     });

@@ -1,8 +1,27 @@
-﻿@{
+﻿@model Application.Models.User.MessageDto
+
+@{
     ViewData["Title"] = "Messages";
 }
 
+<div class="container mt-5 mb-5">
+    <h4>Send message</h4>
+    <form class="mt-4" asp-action="Test" asp-controller="Message" method="post">
+        <div class="validation text-danger" asp-validation-summary="ModelOnly"></div>
 
-<form>
-    <input type="text" id="productName" placeholder="Input your keyword" />
-</form>
+        <span asp-validation-for="RecipientUsername" class="text-danger"></span>
+        <input asp-for="RecipientUsername" type="text" class="form-control form-control-sm" placeholder="Recipient" id="f-recipient" />
+
+        <span asp-validation-for="Subject" class="text-danger"></span>
+        <input asp-for="Subject" type="text" class="form-control form-control-sm" placeholder="Subject" />
+
+        <span asp-validation-for="Content" class="text-danger"></span>
+        <textarea asp-for="Content" class="form-control form-control-sm" rows="5" placeholder="Content"></textarea>
+
+        <button type="submit" class="btn btn-success">Send</button>
+    </form>
+</div>
+
+@section scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
