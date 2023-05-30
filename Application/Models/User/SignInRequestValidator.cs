@@ -10,7 +10,7 @@ namespace Application.Models.User {
     public class SignInRequestValidator : AbstractValidator<SignInRequest> {
         
         public SignInRequestValidator() {
-            RuleFor(x => x.Username).NotEmpty();
+            RuleFor(x => x.Username).NotEmpty().WithMessage("Username required!");
         }
     }
 }

@@ -5,7 +5,7 @@ namespace task6.SignalR;
 
 public class UserIdProvider : IUserIdProvider {
 
-    public virtual string GetUserId(HubConnectionContext context) {
+    public virtual string? GetUserId(HubConnectionContext context) {
         return context.User?.Identity?.Name;
     }
 }

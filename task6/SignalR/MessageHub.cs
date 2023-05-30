@@ -1,3 +1,6 @@
+using Application.Common.Contracts.Services;
+using Application.Models.Message;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
 
 namespace task6.SignalR;
@@ -10,14 +13,30 @@ public class MessageHub : Hub {
         _service = service;
     }
 
-    public async Task Send(string recipient, string subject, string content) {
-        await _service.Add(new SendMessageRequest {
-            Subject = subject,
-            Content = content,
-            Recipient = recipient,
-            Sender = Context.NameIdentifier
-        });
+    public async Task Send(SendMessageRequest request) {
+        var sender = Context.UserIdentifier ?? string.Empty;
+        if (!_ValidateSendRequest(request)) {
+            await Clients.User(sender).SendAsync("Error", "Request validation failed! Fill all fields.");
+            return;
+        }
+        await Clients.User(sender).SendAsync("Success");
 
-        await Clients.User(recipient).SendAsync("Receive", subject, content, sender.NameIdentifier);
+        request.Sender = sender;
+        var result = await _service.Add(request);
+
+        if (!result.Succeeded)
+        {
+            await Clients.User(sender).SendAsync("Error", string.Join(" ", result.Errors!));
+            return;
+        }
+
+        result.Message!.SentTime = result.Message.SentTime.ToLocalTime();
+        await Clients.User(request.Recipient).SendAsync("Receive", result.Message, result.Message!.SentTime.ToString());
+    }
+
+    public bool _ValidateSendRequest(SendMessageRequest request) {
+        return !(string.IsNullOrEmpty(request.Subject) 
+            || string.IsNullOrEmpty(request.Content) 
+            || string.IsNullOrEmpty(request.Recipient));
     }
 }

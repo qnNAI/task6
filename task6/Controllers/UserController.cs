@@ -1,6 +1,6 @@
 ﻿using System.Security.Claims;
 using Application.Common.Contracts.Services;
-using Application.Models.Identity;
+using Application.Models.User;
 using Azure;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;

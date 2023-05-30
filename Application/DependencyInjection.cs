@@ -24,6 +24,7 @@ namespace Application {
             services.AddScoped<IMapper, Mapper>();
 
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IMessageService, MessageService>();
 
             services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 

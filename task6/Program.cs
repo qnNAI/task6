@@ -2,6 +2,7 @@ using Application;
 using FluentValidation.AspNetCore;
 using Infrastructure;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.SignalR;
 using task6.SignalR;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,6 +16,9 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
     });
 
 builder.Services.AddSingleton<IUserIdProvider, UserIdProvider>();
+builder.Services.AddSignalR(op => { 
+    op.EnableDetailedErrors = true;
+});
 
 builder.Services.AddControllersWithViews(o => {
     o.ModelValidatorProviders.Clear();
@@ -32,6 +36,7 @@ if(!app.Environment.IsDevelopment()) {
 else {
     app.UseDeveloperExceptionPage();
 }
+app.UseCors(o => o.AllowAnyOrigin().AllowAnyMethod());
 
 app.UseStaticFiles();
 
@@ -43,5 +48,6 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Message}/{action=Index}/{id?}");
+app.MapHub<MessageHub>("/chat");
 
 app.Run();

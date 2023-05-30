@@ -21,7 +21,7 @@ body {
   margin-bottom: 60px;
 }
 
-.container {
+#send-msg-container {
     max-width: 600px;
 }
 
@@ -29,3 +29,27 @@ form > * {
     margin-bottom: 1rem;
 }
 
+#msg-success,
+#msg-fail {
+    visibility: hidden;
+}
+
+
+#infinite {
+    max-width: 800px;
+    height: 400px;
+    overflow: auto;
+}
+
+/*
+    disable hosting link
+*/
+center > a {
+    display: none !important;
+}
+
+@media (max-width: 768px) {
+    #infinite {
+        height: 300px;
+    }
+}
