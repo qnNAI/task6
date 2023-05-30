@@ -18,9 +18,58 @@
         <span asp-validation-for="Content" class="text-danger"></span>
         <textarea asp-for="Content" class="form-control form-control-sm" rows="5" placeholder="Content"></textarea>
 
-        <button type="submit" class="btn btn-success">Send</button>
+        <button type="button" class="btn btn-success" onclick="sendMessage()">Send</button>
     </form>
 </div>
+
+<div class="container">
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<div aria-live="polite" aria-atomic="true" class="position-relative">
+  <div class="toast-container bottom-0 start-0 p-3">
+
+    <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="toast-header">
+        <img src="..." class="rounded me-2" alt="...">
+        <strong class="me-auto">Bootstrap</strong>
+        <small class="text-body-secondary">just now</small>
+        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+      <div class="toast-body">
+        See? Just like this.
+      </div>
+    </div>
+
+    <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="toast-header">
+        <img src="..." class="rounded me-2" alt="...">
+        <strong class="me-auto">Bootstrap</strong>
+        <small class="text-body-secondary">2 seconds ago</small>
+        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+      <div class="toast-body">
+        Heads up, toasts will stack automatically
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
 
 @section scripts {
     <partial name="_ValidationScriptsPartial" />
