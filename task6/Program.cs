@@ -2,6 +2,7 @@ using Application;
 using FluentValidation.AspNetCore;
 using Infrastructure;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using task6.SignalR;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +13,8 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
     .AddCookie(options => {
         options.LoginPath = new PathString("/User/SignIn");
     });
+
+builder.Services.AddSingleton<IUserIdProvider, UserIdProvider>();
 
 builder.Services.AddControllersWithViews(o => {
     o.ModelValidatorProviders.Clear();

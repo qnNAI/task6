@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using FluentValidation;
 
-namespace Application.Models.Identity {
+namespace Application.Models.User {
 
     public class SignInRequestValidator : AbstractValidator<SignInRequest> {
         

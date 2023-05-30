@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using FluentValidation;
 
-namespace Application.Models.User {
+namespace Application.Models.Message {
     public class MessageDtoValidator : AbstractValidator<MessageDto> {
 
         public MessageDtoValidator() {
