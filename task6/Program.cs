@@ -36,7 +36,6 @@ if(!app.Environment.IsDevelopment()) {
 else {
     app.UseDeveloperExceptionPage();
 }
-app.UseCors(o => o.AllowAnyOrigin().AllowAnyMethod());
 
 app.UseStaticFiles();
 
