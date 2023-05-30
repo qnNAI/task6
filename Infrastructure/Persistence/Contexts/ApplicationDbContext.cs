@@ -24,5 +24,7 @@ namespace Infrastructure.Persistence.Contexts {
         }
 
         public DbSet<ApplicationUser> Users { get; set; } = null!;
+
+        public DbSet<Message> Messages { get; set; } = null!;
     }
 }

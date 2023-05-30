@@ -143,6 +143,10 @@
         "scss/_variables-dark.scss",
         "scss/_variables.scss"
       ]
+    },
+    {
+      "library": "microsoft-signalr@7.0.5",
+      "destination": "wwwroot/lib/microsoft-signalr/"
     }
   ]
 }

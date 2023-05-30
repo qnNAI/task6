@@ -11,6 +11,7 @@ namespace Application.Common.Contracts.Contexts {
     public interface IApplicationDbContext {
 
         DbSet<ApplicationUser> Users { get; set; }
+        DbSet<Message> Messages { get; set; }
 
         Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
     }
