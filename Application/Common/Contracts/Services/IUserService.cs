@@ -10,5 +10,6 @@ namespace Application.Common.Contracts.Services {
     public interface IUserService {
         Task<List<UserDto>> GetUsersByPrefix(string prefix);
         Task<AuthenticateResponse> SignInAsync(SignInRequest request);
+        Task<SignUpResponse> SignUpIfNotExistsAsync(SignUpRequest request);
     }
 }

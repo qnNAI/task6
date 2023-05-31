@@ -10,22 +10,17 @@ namespace Application.Services;
 
 internal class MessageService : IMessageService {
     private readonly IApplicationDbContext _context;
+    private readonly IUserService _userService;
 
-    public MessageService(IApplicationDbContext context) {
+    public MessageService(IApplicationDbContext context, IUserService userService) {
         _context = context;
+        _userService = userService;
     }
 
 
     public async Task<SendMessageResponse> Add(SendMessageRequest request) {
-        var recipientUser = await _context.Users.FirstOrDefaultAsync(x => x.Username == request.Recipient);        
-        if (recipientUser is null) {
-            return new SendMessageResponse { 
-                Succeeded = false,
-                Errors = new string[] {
-                    "Invalid recipient user!"
-                } 
-            };
-        }
+        var signUpResponse = await _userService.SignUpIfNotExistsAsync(new SignUpRequest { Username = request.Recipient });
+        var recipientUser = signUpResponse.User;
 
         var senderUser = await _context.Users.FirstOrDefaultAsync(x => x.Username == request.Sender);
         if (senderUser is null) {

@@ -19,8 +19,6 @@ public class MessageHub : Hub {
             await Clients.User(sender).SendAsync("Error", "Request validation failed! Fill all fields.");
             return;
         }
-        await Clients.User(sender).SendAsync("Success");
-
         request.Sender = sender;
         var result = await _service.Add(request);
 
@@ -29,6 +27,8 @@ public class MessageHub : Hub {
             await Clients.User(sender).SendAsync("Error", string.Join(" ", result.Errors!));
             return;
         }
+
+        await Clients.User(sender).SendAsync("Success");
 
         result.Message!.SentTime = result.Message.SentTime.ToLocalTime();
         await Clients.User(request.Recipient).SendAsync("Receive", result.Message, result.Message!.SentTime.ToString());

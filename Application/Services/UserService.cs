@@ -28,21 +28,29 @@ namespace Application.Services {
             if(request is null) {
                 throw new ArgumentNullException(nameof(request));
             }
+            var signUpResponse = await SignUpIfNotExistsAsync(new SignUpRequest { Username = request.Username });
 
+            return new AuthenticateResponse {
+                Succeeded = true,
+                Id = signUpResponse.User.Id,
+                Username = signUpResponse.User.Username
+            };
+        }
+
+        public async Task<SignUpResponse> SignUpIfNotExistsAsync(SignUpRequest request) {
             var user = await _context.Users.FirstOrDefaultAsync(x => x.Username == request.Username);
-            if (user is null) {
+            if(user is null) {
                 user = new ApplicationUser {
                     Id = Guid.NewGuid().ToString(),
                     Username = request.Username
                 };
                 _context.Users.Add(user);
                 await _context.SaveChangesAsync();
+                
             }
 
-            return new AuthenticateResponse {
-                Succeeded = true,
-                Id = user.Id,
-                Username = user.Username
+            return new SignUpResponse {
+                User = user.Adapt<UserDto>()
             };
         }
     }
